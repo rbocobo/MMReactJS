@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 const config = {
     devtool: 'inline-source-map',
-    entry: __dirname + '/app/App.js',
+    entry: __dirname + '/app/main.js',
     output:{
         path: "./public/js/",
         publicPath: "/js/",
