@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Bootstrap from "!style!css!bootstrap/dist/css/bootstrap.css";
 import MyHeader from "./components/MyHeader" ;
+import MyFooter from "./components/MyFooter" ;
 
 /*
 var React = require('react');
@@ -24,11 +25,11 @@ class KanbanApplication extends React.Component{
         var message = 
         'Hello World! React has been successfully running for seconds.';
 
-        return <div className="panel panel-default">
+        return <div className="container">
                     <MyHeader/>
-                <div className="panel-body">
-                    {message}
-                </div>
+                    <div>
+                    <MyFooter/>
+                    </div>
                 </div>
     }
 };
