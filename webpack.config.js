@@ -1,12 +1,13 @@
 const webpack = require('webpack');
-
+var combineLoaders = require('webpack-combine-loaders');
+const  ExtractTextPlugin = require("extract-text-webpack-plugin");
 const config = {
     devtool: 'inline-source-map',
     entry: __dirname + '/app/main.js',
     output:{
-        path: "./public/js/",
-        publicPath: "/js/",
-        filename: "bundle.js"
+        path: "./public",
+        publicPath: "/public/",
+        filename: "/js/bundle.js"
     },
     module:{
         loaders:[{
@@ -15,22 +16,35 @@ const config = {
             loader: "babel",
             query:{
                 presets:["es2015","react"]
-            }
+                }
         },
+        
         { 
             test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
             loader: "url-loader?limit=10000&minetype=application/font-woff" 
         },
         { 
             test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-            loader: "file-loader" 
+            loader: "file-loader" ,
         },
         {
             test: /\.css$/, // Only .css files
-            loader: 'style!css' // Run both loaders
+            loader: ExtractTextPlugin.extract(
+                'style-loader',
+                combineLoaders([{
+                    loader: 'css-loader',
+                    query: {
+                    modules: true,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                    }
+                }])
+                )
         },
         ]
     },
+    plugins:[
+        new ExtractTextPlugin("/css/styles.css")
+    ],
     devServer:{
         contentBase:"./public",
         colors: true,
